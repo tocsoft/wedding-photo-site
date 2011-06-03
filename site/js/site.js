@@ -93,6 +93,7 @@ $(function () {
         var $thumbs = $thumbs_wrapper.children(':first');
         //each thumb has 180px and we add 3 of margin
         var finalW = $thumbs.find('img').length * 183;
+
         $thumbs.css('width', finalW + 'px');
         //make this element scrollable
         makeScrollable($thumbs_wrapper, $thumbs);
