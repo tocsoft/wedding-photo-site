@@ -12,7 +12,7 @@ namespace GenerateWeddingHtml
 {
     class Program
     {
-        const string pictureThumbHtml = @"<img data-src='images/thumbs/{0}/{1}' id='{5}' title='{2}' data-attribution='{3}'  data-attribution-url='{4}' href='images/mains/{0}/{1}'/>";
+        const string pictureThumbHtml = @"<img class='{6}' data-src='images/thumbs/{0}/{1}' id='{5}' title='{2}' data-attribution='{3}'  data-attribution-url='{4}' href='images/mains/{0}/{1}'/>";
         const string albumHtml = @"<li class='album'>
 					<span class='st_link'><span class='st_arrow_down'>{0}</span></span>
 					<div class='st_wrapper st_thumbs_wrapper'>
@@ -43,16 +43,20 @@ namespace GenerateWeddingHtml
 
                 foreach (var img_path in Directory.GetFiles(a_path))
                 {
-                    var imageName = Path.GetFileName(img_path);
-                   
+                    var fn = Path.GetFileName(img_path).Split('~');
+
+                    var imageName = fn.Last();
+                    var cssClass = "";
+                    if(fn.Where(x => x == "@").Any())
+                        cssClass = "default"; 
                     Info inf = new Info(img_path);
                     var artist_details = (inf.Artists ?? new string[]{});
                     var artist = artist_details.FirstOrDefault() ?? "";
                     var albumFoldername = albumName.Replace(' ', '_');
                     var aUrl = artist_details.Select(x => x.Trim()).Where(x => x.StartsWith("http://") || x.StartsWith("https://") || x.StartsWith("mailto:")).FirstOrDefault() ?? "";
-                    var imgId = albumFoldername + "_" + Path.GetFileNameWithoutExtension(img_path);
+                    var imgId = albumFoldername + "_" + Path.GetFileNameWithoutExtension(imageName);
 
-                    thumbshtml.AppendLine(string.Format(pictureThumbHtml, albumFoldername, imageName, inf.Title ?? imageName, artist, aUrl, imgId));
+                    thumbshtml.AppendLine(string.Format(pictureThumbHtml, albumFoldername, imageName, inf.Title ?? imageName, artist, aUrl, imgId, cssClass));
                    
 
                     using (Image img = inf.Image)

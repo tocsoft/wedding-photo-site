@@ -31,11 +31,11 @@ $(function () {
                 if (tmp.length > 0) {
                     tmp.click();
                 } else
-                    $list.find('img:first').click();
+                    $list.find('img.default').click();
             }
 
             else
-                $list.find('img:first').click();
+                $list.find('img.default').click();
         }
     }
 

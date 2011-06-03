@@ -156,7 +156,7 @@ namespace gma.Drawing.ImageInfo
                 }
                 catch { return null; }
             }
-        } 
+        }
         ///<summary>
         ///Artists
         ///</summary>
@@ -171,6 +171,10 @@ namespace gma.Drawing.ImageInfo
                 catch { return null; }
             }
         }
+
+
+
+
 		
 
 		///<summary>
