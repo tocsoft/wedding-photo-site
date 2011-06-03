@@ -152,3 +152,7 @@ span.reference{
 			    height:40px;
 			    
 			}
+			.st_thumbs img.currentImage
+			{
+			    outline:2px solid white;
+            }

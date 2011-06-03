@@ -114,8 +114,10 @@ $(function () {
 
     //clicking on a thumb, replaces the large image
     $list.find('.st_thumbs img').bind('click', function (e) {
+        $list.find('.st_thumbs img').removeClass('currentImage');
 
         var $this = $(this);
+        $this.addClass('currentImage');
         skipHashChange = true;
         window.location.hash = '!' + $this.attr('id');
 
@@ -192,19 +194,27 @@ $(function () {
 
     var autoFirstHideTimer;
 
-    function hideAlbums() {
+    function hideAlbums(cb) {
+        var call = cb; ;
         clearTimeout(autoFirstHideTimer);
         $('.st_link').each(function () {
             var st = $(this);
             st.stop();
 
-            if (st.siblings(':visible').length == 0)
+            if (st.siblings(':visible').length == 0) {
                 st.animate({ left: -(st.width() - 15) });
+            }
         });
+
+        if (call)
+            call();
     }
 
     $('body').live('click', function () {
         hideThumbs(hideAlbums);
+
+        if ($list.find('li.current').length == 0)//clicking on bg only moves forward if clicked on if draws are closed
+            moveBy(1);
     });
     function showAlbum(st) {
         var st = $(st);
@@ -225,4 +235,79 @@ $(function () {
     autoFirstHideTimer = setTimeout(hideAlbums, 5000);
     imageChanged();
 
+
+    function moveBy(delta) {
+        var imgs = $list.find('img');
+        var crntPos = 0;
+        imgs.each(function (i) {
+            if ($(this).hasClass('currentImage')) {
+                crntPos = i;
+            }
+        });
+        crntPos += delta;
+        if (crntPos < 0)
+            crntPos += imgs.length;
+        if (crntPos >= imgs.length)
+            crntPos -= imgs.length;
+
+        var $img = $(imgs[crntPos]).click();
+
+        var $li = $img.closest('li');
+
+
+        //newimage.position().left + newimage.width > $('.st_thumbs_wrapper', $li).width();
+
+        
+        if ($('.st_arrow_up').length > 0) {
+            //any are visible so we need to open and close relarvent ones
+
+            $li = $img.closest('li');
+            $('.st_arrow_down', $li).click();
+
+            hideAlbums();
+            showAlbum($('.st_link', $li));
+
+        }
+
+        var scrl = ($(window).width() / 2) - ($img.width() / 2);
+
+        $outer = $('.st_thumbs_wrapper', $li);
+        $outer.scrollLeft(0);
+        $outer.scrollLeft(($img.position().left - scrl)); //.width());
+
+    }
+
+    $(document).keyup(function (e) {
+        if (e.keyCode == 37) {
+            moveBy(-1);
+            return false;
+        } else if (e.keyCode == 39) {
+            moveBy(1);
+            return false;
+        } else if (e.keyCode == 38) {
+
+            //close currentThumb
+            hideThumbs(hideAlbums);
+
+            return false;
+        } else if (e.keyCode == 40) {
+
+            var $img = $('img.currentImage');
+
+            var $li = $img.closest('li');
+            showAlbum($('.st_link', $li));
+            $('.st_arrow_down', $li).click();
+
+            return false;
+        }
+        /*
+        37 - left
+
+        38 - up
+
+        39 - right
+
+        40 - down
+        */
+    });
 });
