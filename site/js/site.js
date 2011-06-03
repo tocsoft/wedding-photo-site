@@ -114,10 +114,15 @@ $(function () {
 
     //clicking on a thumb, replaces the large image
     $list.find('.st_thumbs img').bind('click', function (e) {
-        $list.find('.st_thumbs img').removeClass('currentImage');
 
         var $this = $(this);
+
+        $list.find('.st_thumbs img').removeClass('currentImage');
+        var $li = $this.closest('li');
+        $list.find('li').not($li).removeClass('currentAlbum');
+
         $this.addClass('currentImage');
+        $li.addClass('currentAlbum');
         skipHashChange = true;
         window.location.hash = '!' + $this.attr('id');
 
@@ -257,7 +262,7 @@ $(function () {
 
         //newimage.position().left + newimage.width > $('.st_thumbs_wrapper', $li).width();
 
-        
+
         if ($('.st_arrow_up').length > 0) {
             //any are visible so we need to open and close relarvent ones
 

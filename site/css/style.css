@@ -57,9 +57,6 @@ ul.st_navigation li span.st_arrow_up{
 	margin-left:15px;
 	height:40px;
 	cursor:pointer;
-	-moz-box-shadow:0px 0px 2px #000;
-	-webkit-box-shadow:0px 0px 2px #000;
-	box-shadow:0px 0px 2px #000;
 	padding-right:40px;
 }
 ul.st_navigation li span.st_arrow_down{
@@ -152,6 +149,20 @@ span.reference{
 			    height:40px;
 			    
 			}
+			
+			ul.st_navigation li.currentAlbum span.st_arrow_down,
+			ul.st_navigation li.currentAlbum span.st_arrow_up
+			{
+                background-color:#333;
+            }
+ul.st_navigation li.currentAlbum  span.st_link{
+                background-color:#333;
+                
+	-moz-box-shadow:0px 0px 2px white;
+	-webkit-box-shadow:0px 0px 2px white;
+	box-shadow:0px 0px 2px white;
+            }
+            
 			.st_thumbs img.currentImage
 			{
 			    outline:2px solid white;
