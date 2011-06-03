@@ -12,7 +12,7 @@ namespace GenerateWeddingHtml
 {
     class Program
     {
-        const string pictureThumbHtml = @"<img src='images/thumbs/{0}/{1}' id='{5}' title='{2}' data-attribution='{3}'  data-attribution-url='{4}' href='images/mains/{0}/{1}'/>";
+        const string pictureThumbHtml = @"<img data-src='images/thumbs/{0}/{1}' id='{5}' title='{2}' data-attribution='{3}'  data-attribution-url='{4}' href='images/mains/{0}/{1}'/>";
         const string albumHtml = @"<li class='album'>
 					<span class='st_link'><span class='st_arrow_down'>{0}</span></span>
 					<div class='st_wrapper st_thumbs_wrapper'>

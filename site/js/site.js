@@ -11,14 +11,6 @@
 
 $(function () {
 
-    //setup defered loading of thumbs
-    $('li.album img').each(function () {
-        $this = $(this);
-        var src = $this.attr('src');
-        $this.attr('data-src', src);
-        $this.attr('src', '');
-    });
-
     //the loading image
     var $loader = $('#st_loading');
     //the ul element 
