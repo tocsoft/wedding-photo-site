@@ -165,5 +165,5 @@ ul.st_navigation li.currentAlbum  span.st_link{
             
 			.st_thumbs img.currentImage
 			{
-			    outline:2px solid white;
+			    border:2px solid white;
             }
