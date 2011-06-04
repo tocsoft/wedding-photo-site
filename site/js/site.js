@@ -154,7 +154,9 @@ $(function () {
             skipHashChange = false;
         }).attr('src', $this.attr('href'));
 
-        $('h2').text($this.attr('title'));
+
+        $('h2').text($('.st_link', $li).text() + " - " + $this.attr('title'));
+
         attribUrl = $this.attr('data-attribution-url');
         var atrib = $('#attribution').text($this.attr('data-attribution'));
         if (attribUrl)
@@ -314,7 +316,7 @@ $(function () {
 
     $(document).keyup(function (e) {
         var kk = e.keyCode;
-        if (e.keyCode == 32) { //space
+        if (e.keyCode == 32 || e.keyCode == 13) { //space
             if ($('.st_arrow_up').length > 0) {
                 //we have an up arrow that means we should hide the album
                 hideThumbs(hideAlbums);
@@ -337,7 +339,7 @@ $(function () {
             return false;
         } else if (e.keyCode == 40) { //down
             moveAlbumBy(1);
-            
+
             return false;
         }
         /*
