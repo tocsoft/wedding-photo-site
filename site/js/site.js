@@ -123,6 +123,17 @@ $(function () {
 
         $this.addClass('currentImage');
         $li.addClass('currentAlbum');
+
+        var imgs = $('img', $li);
+        var crntPos = 0;
+        imgs.each(function (i) {
+            if ($(this).hasClass('currentImage')) {
+                crntPos = i;
+            }
+        });
+
+        $li.data('crntIdx', crntPos);
+
         skipHashChange = true;
         window.location.hash = '!' + $this.attr('id');
 
@@ -241,26 +252,25 @@ $(function () {
     imageChanged();
 
 
-    function moveBy(delta) {
-        var imgs = $list.find('img');
+    function moveAlbumBy(delta) {
+        var albums = $('li', $list);
         var crntPos = 0;
-        imgs.each(function (i) {
-            if ($(this).hasClass('currentImage')) {
+        albums.each(function (i) {
+            if ($(this).hasClass('currentAlbum'))
                 crntPos = i;
-            }
         });
+
         crntPos += delta;
         if (crntPos < 0)
-            crntPos += imgs.length;
-        if (crntPos >= imgs.length)
-            crntPos -= imgs.length;
+            crntPos += albums.length;
+        if (crntPos >= albums.length)
+            crntPos -= albums.length;
 
-        var $img = $(imgs[crntPos]).click();
+        $li = $('.currentAlbum');
 
-        var $li = $img.closest('li');
-
-
-        //newimage.position().left + newimage.width > $('.st_thumbs_wrapper', $li).width();
+        var newAlbum = $(albums[crntPos]);
+        var imgIdx = newAlbum.data('crntIdx') || 0;
+        $img = $($('img', newAlbum)[imgIdx]).click();
 
 
         if ($('.st_arrow_up').length > 0) {
@@ -274,6 +284,26 @@ $(function () {
 
         }
 
+    }
+    function moveImageBy(delta) {
+
+        $li = $('.currentAlbum');
+        var crntPos = $li.data('crntIdx') || 0;
+
+        var imgs = $('img', $li);
+
+        crntPos += delta;
+        if (crntPos < 0)
+            crntPos += imgs.length;
+        if (crntPos >= imgs.length)
+            crntPos -= imgs.length;
+
+        var $img = $(imgs[crntPos]).click();
+
+        var $li = $img.closest('li');
+
+
+
         var scrl = ($(window).width() / 2) - ($img.width() / 2);
 
         $outer = $('.st_thumbs_wrapper', $li);
@@ -283,26 +313,31 @@ $(function () {
     }
 
     $(document).keyup(function (e) {
-        if (e.keyCode == 37) {
-            moveBy(-1);
+        var kk = e.keyCode;
+        if (e.keyCode == 32) { //space
+            if ($('.st_arrow_up').length > 0) {
+                //we have an up arrow that means we should hide the album
+                hideThumbs(hideAlbums);
+            } else {
+                var $img = $('img.currentImage');
+
+                var $li = $img.closest('li');
+                showAlbum($('.st_link', $li));
+                $('.st_arrow_down', $li).click();
+            }
+        } else if (e.keyCode == 37) {//left
+            moveImageBy(-1);
             return false;
-        } else if (e.keyCode == 39) {
-            moveBy(1);
+        } else if (e.keyCode == 39) { //right
+            moveImageBy(1);
             return false;
-        } else if (e.keyCode == 38) {
-
-            //close currentThumb
-            hideThumbs(hideAlbums);
+        } else if (e.keyCode == 38) { //up
+            moveAlbumBy(-1);
 
             return false;
-        } else if (e.keyCode == 40) {
-
-            var $img = $('img.currentImage');
-
-            var $li = $img.closest('li');
-            showAlbum($('.st_link', $li));
-            $('.st_arrow_down', $li).click();
-
+        } else if (e.keyCode == 40) { //down
+            moveAlbumBy(1);
+            
             return false;
         }
         /*
