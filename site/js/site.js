@@ -154,6 +154,7 @@ $(function () {
             skipHashChange = false;
         }).attr('src', $this.attr('href'));
 
+        pageTracker._trackPageview($this.attr('href'));
 
         $('h2').text($('.st_link', $li).text() + " - " + $this.attr('title'));
 
