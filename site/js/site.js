@@ -157,7 +157,7 @@ $(function() {
         var title = $('.st_link', $li).text() + " - " + $this.attr('title');
         _gaq.push(['_trackPageview', $this.attr('href')]);
 
-        if (woopraTracker)
+        if (woopraTracker || false)
             woopraTracker.pushEvent({ type: 'pageview', url: $this.attr('href'), title: title });
         else
             woo_actions.push({ type: 'pageview', url: $this.attr('href'), title: title });
