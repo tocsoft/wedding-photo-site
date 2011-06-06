@@ -158,7 +158,7 @@ $(function() {
         _gaq.push(['_trackPageview', $this.attr('href')]);
 
         if (typeof woopraTracker !== 'undefined')
-            woopraTracker.pushEvent({ type: 'pageview', url: $this.attr('href'), title: title });
+            woopraTracker.trackPageview({ type: 'pageview', url: $this.attr('href'), title: title });
         else
             woo_actions.push({ type: 'pageview', url: $this.attr('href'), title: title });
 
