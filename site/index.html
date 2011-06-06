@@ -23,18 +23,18 @@
             var woo_settings = { idle_timeout: '300000', domain: 'wedding.scott-and-chell.co.uk' };
             var woo_actions = [];
 
-            (function() {
-                var wsc = document.createElement('script');
-                wsc.src = document.location.protocol + '//static.woopra.com/js/woopra.js';
-                wsc.type = 'text/javascript';
-                wsc.async = true;
-                var ssc = document.getElementsByTagName('script')[0];
-                ssc.parentNode.insertBefore(wsc, ssc);
-            })();
         </script>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
         <script src='js/site.js'></script>		
          <script>
+             (function() {
+                 var wsc = document.createElement('script');
+                 wsc.src = document.location.protocol + '//static.woopra.com/js/woopra.js';
+                 wsc.type = 'text/javascript';
+                 wsc.async = true;
+                 var ssc = document.getElementsByTagName('script')[0];
+                 ssc.parentNode.insertBefore(wsc, ssc);
+             })();
              // You may want to place these lines inside an onload handler
              CFInstall.check({
                  mode: "overlay"
