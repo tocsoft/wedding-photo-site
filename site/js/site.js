@@ -154,9 +154,12 @@ $(function () {
             skipHashChange = false;
         }).attr('src', $this.attr('href'));
 
+        var title = $('.st_link', $li).text() + " - " + $this.attr('title');
         _gaq.push(['_trackPageview', $this.attr('href')]);
+        
+        woo_actions.push({ type: 'pageview', url: $this.attr('href'), title: title}]
 
-        $('h2').text($('.st_link', $li).text() + " - " + $this.attr('title'));
+        $('h2').text(title);
 
         attribUrl = $this.attr('data-attribution-url');
         var atrib = $('#attribution').text($this.attr('data-attribution'));

@@ -19,6 +19,10 @@
             _gaq.push(['_setAccount', 'UA-23783854-1']);
             _gaq.push(['_trackPageview']);
         </script>
+        <script type="text/javascript">
+            var woo_settings = { idle_timeout: '300000', domain: 'wedding.scott-and-chell.co.uk' };
+            var woo_actions = [{ type: 'pageview', url: window.location.pathname + window.location.search, title: document.title}];
+        </script>
         
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
         <script src='js/site.js'></script>		
@@ -248,5 +252,19 @@
             })();
 
         </script>
+        <!-- Start of Woopra Code -->
+
+<script type="text/javascript"> 
+    (function() {
+        var wsc = document.createElement('script');
+        wsc.src = document.location.protocol + '//static.woopra.com/js/woopra.js';
+        wsc.type = 'text/javascript';
+        wsc.async = true;
+        var ssc = document.getElementsByTagName('script')[0];
+        ssc.parentNode.insertBefore(wsc, ssc);
+    })();
+</script>
+<!-- End of Woopra Code -->
+
     </body>
 </html>
